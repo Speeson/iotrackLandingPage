@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const basePath = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout>
@@ -20,10 +22,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </a>
 
       <nav class="nav-links" aria-label="Primary">
-        <a href="#solution" data-i18n="nav_solution">Solucion</a>
-        <a href="#features" data-i18n="nav_features">Funciones</a>
+        <a href="#solution" data-i18n="nav_solution">Flujo</a>
+        <a href="#app" data-i18n="nav_app">App</a>
+        <a href="#integration" data-i18n="nav_integration">Integraciones</a>
         <a href="#architecture" data-i18n="nav_architecture">Arquitectura</a>
-        <a href="#cta" data-i18n="nav_contact">Contacto</a>
+        <a href="#project" data-i18n="nav_project">Proyecto</a>
+        <a href="#author" data-i18n="nav_author">Autor</a>
       </nav>
 
       <div class="header-controls">
@@ -63,20 +67,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#solution" data-i18n="hero_cta_primary">Explorar plataforma</a>
-        <a class="btn-secondary" href="#architecture" data-i18n="hero_cta_secondary">Ver arquitectura</a>
+        <a class="btn-secondary" href="#app" data-i18n="hero_cta_secondary">Ver la app</a>
       </div>
       <div class="hero-panels">
         <article class="glass panel reveal" data-stagger="0">
-          <span class="panel-label" data-i18n="hero_panel_1_label">Eventos procesados</span>
-          <strong class="panel-value"><span data-counter="12500">12.5K</span></strong>
+          <span class="panel-label" data-i18n="hero_panel_1_label">Inventario inteligente</span>
+          <strong class="panel-value panel-value-text" data-i18n="hero_panel_1_value">Productos, stock y movimientos trazables</strong>
         </article>
         <article class="glass panel reveal" data-stagger="1">
-          <span class="panel-label" data-i18n="hero_panel_2_label">Disponibilidad API</span>
-          <strong class="panel-value"><span data-counter="99.9">99.9</span>%</strong>
+          <span class="panel-label" data-i18n="hero_panel_2_label">Eventos IoT simulados</span>
+          <strong class="panel-value panel-value-text" data-i18n="hero_panel_2_value">Sensores, cola asíncrona y workers</strong>
         </article>
         <article class="glass panel reveal" data-stagger="2">
-          <span class="panel-label" data-i18n="hero_panel_3_label">Latencia media</span>
-          <strong class="panel-value"><span data-counter="85">85</span>ms</strong>
+          <span class="panel-label" data-i18n="hero_panel_3_label">Android + Backend</span>
+          <strong class="panel-value panel-value-text" data-i18n="hero_panel_3_value">Escaneo, etiquetas, API y base de datos</strong>
         </article>
       </div>
     </section>
@@ -112,7 +116,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </svg>
           </div>
           <h3 class="flow-title" data-i18n="solution_step2_title">Procesa</h3>
-          <p class="flow-body" data-i18n="solution_step2_body">Cola asyncrona con workers para idempotencia, reintentos y trazabilidad.</p>
+          <p class="flow-body" data-i18n="solution_step2_body">Cola asíncrona con workers para idempotencia, reintentos y trazabilidad.</p>
         </article>
         <div class="flow-link" aria-hidden="true">
           <span class="flow-arrow">></span>
@@ -128,97 +132,183 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </svg>
           </div>
           <h3 class="flow-title" data-i18n="solution_step3_title">Decide</h3>
-          <p class="flow-body" data-i18n="solution_step3_body">Alertas de bajo stock, reportes de turnover y auditoria completa por rol.</p>
+          <p class="flow-body" data-i18n="solution_step3_body">Alertas de bajo stock, reportes de turnover y auditoría completa por rol.</p>
         </article>
       </div>
     </section>
 
-    <section id="features" class="container section reveal snap-section">
+    <section id="app" class="container section reveal snap-section" data-snap-style="tight">
       <div class="section-heading">
-        <p class="eyebrow" data-i18n="features_badge">Capacidades clave</p>
-        <h2 data-i18n="features_title">Tecnologia orientada a operaciones reales</h2>
+        <p class="eyebrow" data-i18n="app_badge">App Android</p>
+        <h2 data-i18n="app_title">Inventario operable desde el móvil</h2>
       </div>
-      <div class="feature-grid">
-        <article class="glass feature-card reveal" data-stagger="0">
-          <h3 data-i18n="feature_1_title">Auth + Roles</h3>
-          <p data-i18n="feature_1_body">JWT con permisos USER, MANAGER y ADMIN en endpoints de negocio.</p>
+      <div class="app-showcase">
+        <article class="glass phone-frame reveal">
+          <div class="phone-speaker" aria-hidden="true"></div>
+          <div class="phone-screen app-screenshot-frame">
+            <img
+              id="appPreviewImage"
+              src={`${basePath}assets/logos/screen.png`}
+              data-default-preview={`${basePath}assets/logos/screen.png`}
+              alt="Pantalla de login de IoTrack en Android"
+              loading="lazy"
+            />
+          </div>
         </article>
-        <article class="glass feature-card reveal" data-stagger="1">
-          <h3 data-i18n="feature_2_title">Android Productivo</h3>
-          <p data-i18n="feature_2_body">Escaneo CameraX/ML Kit, cola offline y soporte de impresion de etiquetas.</p>
+        <div class="capability-grid">
+          <article class="glass capability-card reveal" data-stagger="0" data-preview={`${basePath}assets/logos/screen1.png`}>
+            <span class="card-index">01</span>
+            <h3 data-i18n="app_card_1_title">Escaneo con cámara</h3>
+            <p data-i18n="app_card_1_body">CameraX y ML Kit leen códigos de barras para abrir el flujo de movimiento.</p>
+          </article>
+          <article class="glass capability-card reveal" data-stagger="1" data-preview={`${basePath}assets/logos/screen2.png`}>
+            <span class="card-index">02</span>
+            <h3 data-i18n="app_card_2_title">Operación offline</h3>
+            <p data-i18n="app_card_2_body">Room mantiene caché local, cola de errores y reintentos cuando vuelve la conexión.</p>
+          </article>
+          <article class="glass capability-card reveal" data-stagger="2" data-preview={`${basePath}assets/logos/screen3.png`}>
+            <span class="card-index">03</span>
+            <h3 data-i18n="app_card_3_title">Stock y alertas</h3>
+            <p data-i18n="app_card_3_body">Pantallas para productos, stocks, eventos, rotación, umbrales y alertas.</p>
+          </article>
+          <article class="glass capability-card reveal" data-stagger="3" data-preview={`${basePath}assets/logos/screen4.png`}>
+            <span class="card-index">04</span>
+            <h3 data-i18n="app_card_4_title">Etiquetas Bluetooth</h3>
+            <p data-i18n="app_card_4_body">Impresión de etiquetas desde Android mediante integración con SDK de NIIMBOT.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="iot" class="container section reveal snap-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="iot_badge">Sensores IoT simulados</p>
+        <h2 data-i18n="iot_title">Eventos simulados, comportamiento de sistema real</h2>
+      </div>
+      <div class="iot-grid">
+        <article class="glass iot-card reveal" data-stagger="0">
+          <h3 data-i18n="iot_card_1_title">Eventos desacoplados</h3>
+          <p data-i18n="iot_card_1_body">La API registra eventos de entrada, salida o ajuste y los deja listos para procesarse.</p>
         </article>
-        <article class="glass feature-card reveal" data-stagger="2">
-          <h3 data-i18n="feature_3_title">Eventos IoT</h3>
-          <p data-i18n="feature_3_body">Ingesta de eventos simulados y procesamiento asincrono con Redis + Celery.</p>
+        <article class="glass iot-card reveal" data-stagger="1">
+          <h3 data-i18n="iot_card_2_title">Workers y cola</h3>
+          <p data-i18n="iot_card_2_body">Redis y Celery ejecutan el procesamiento en segundo plano con reintentos.</p>
         </article>
-        <article class="glass feature-card reveal" data-stagger="3">
-          <h3 data-i18n="feature_4_title">Observabilidad</h3>
-          <p data-i18n="feature_4_body">Health checks, metricas Prometheus y paneles de seguimiento en Grafana.</p>
+        <article class="glass iot-card reveal" data-stagger="2">
+          <h3 data-i18n="iot_card_3_title">Estados trazables</h3>
+          <p data-i18n="iot_card_3_body">Cada evento puede quedar pendiente, procesado o fallido con información de error.</p>
         </article>
-        <article class="glass feature-card reveal" data-stagger="4">
-          <h3 data-i18n="feature_5_title">Import CSV</h3>
-          <p data-i18n="feature_5_body">Importaciones controladas con cuarentena y aprobacion de lotes.</p>
-        </article>
-        <article class="glass feature-card reveal" data-stagger="5">
-          <h3 data-i18n="feature_6_title">Auditoria</h3>
-          <p data-i18n="feature_6_body">Trazabilidad por entidad, accion y usuario para defensa y compliance.</p>
+        <article class="glass iot-card reveal" data-stagger="3">
+          <h3 data-i18n="iot_card_4_title">Idempotencia</h3>
+          <p data-i18n="iot_card_4_body">Las claves idempotentes ayudan a evitar duplicados cuando hay reintentos.</p>
         </article>
       </div>
+    </section>
+
+    <section id="integration" class="container section reveal snap-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="integration_badge">Integraciones</p>
+        <h2 data-i18n="integration_title">Etiquetado físico conectado al inventario</h2>
+      </div>
+      <article class="glass integration-card reveal">
+        <div class="niimbot-mark">
+          <img src={`${basePath}assets/logos/niimbot.png`} alt="NIIMBOT" loading="lazy" />
+          <strong>NIIMBOT</strong>
+          <span>SDK</span>
+        </div>
+        <div class="integration-copy">
+          <h3 data-i18n="integration_card_title">Impresión Bluetooth desde Android</h3>
+          <p data-i18n="integration_card_body">
+            IoTrack integra el SDK oficial de NIIMBOT para imprimir etiquetas desde la app y cerrar el flujo entre producto digital y etiqueta física.
+          </p>
+          <p class="legal-note" data-i18n="integration_note">
+            Uso académico, demostrativo y sin finalidad comercial. IoTrack no está afiliado, patrocinado ni respaldado oficialmente por NIIMBOT.
+          </p>
+        </div>
+      </article>
     </section>
 
     <section id="architecture" class="container section reveal snap-section">
       <div class="section-heading">
         <p class="eyebrow" data-i18n="architecture_badge">Arquitectura</p>
-        <h2 data-i18n="architecture_title">Diseno modular para escalar sin perder control</h2>
+        <h2 data-i18n="architecture_title">Una app móvil conectada a un backend auditable</h2>
       </div>
       <div class="architecture-grid">
-        <article class="glass arch-card reveal">
-          <h3 data-i18n="architecture_layer_1">Frontend Android (Kotlin)</h3>
-          <p data-i18n="architecture_layer_1_body">App con escaneo, sesiones persistentes y cache local para modo offline.</p>
+        <article class="glass arch-card reveal" data-stagger="0">
+          <span class="tech-pill">Kotlin</span>
+          <h3 data-i18n="architecture_layer_1">Android</h3>
+          <p data-i18n="architecture_layer_1_body">Retrofit, OkHttp, Room, CameraX, ML Kit, sesiones persistentes y soporte offline.</p>
         </article>
-        <article class="glass arch-card reveal">
-          <h3 data-i18n="architecture_layer_2">Backend FastAPI</h3>
-          <p data-i18n="architecture_layer_2_body">API REST con JWT, validaciones, reglas de dominio y contrato OpenAPI.</p>
+        <article class="glass arch-card reveal" data-stagger="1">
+          <span class="tech-pill">FastAPI</span>
+          <h3 data-i18n="architecture_layer_2">API REST</h3>
+          <p data-i18n="architecture_layer_2_body">JWT, roles USER/MANAGER/ADMIN, OpenAPI, validaciones y reglas de dominio.</p>
         </article>
-        <article class="glass arch-card reveal">
-          <h3 data-i18n="architecture_layer_3">Datos + Cola</h3>
-          <p data-i18n="architecture_layer_3_body">PostgreSQL, SQLAlchemy, Redis, workers Celery y jobs programados.</p>
+        <article class="glass arch-card reveal" data-stagger="2">
+          <span class="tech-pill">PostgreSQL</span>
+          <h3 data-i18n="architecture_layer_3">Datos</h3>
+          <p data-i18n="architecture_layer_3_body">SQLAlchemy, Alembic, productos, stocks, movimientos, eventos, auditoría e importaciones.</p>
+        </article>
+        <article class="glass arch-card reveal" data-stagger="3">
+          <span class="tech-pill">Redis + Celery</span>
+          <h3 data-i18n="architecture_layer_4">Procesamiento</h3>
+          <p data-i18n="architecture_layer_4_body">Workers, Celery Beat, alertas de stock bajo, reintentos y jobs programados.</p>
+        </article>
+        <article class="glass arch-card reveal" data-stagger="4">
+          <span class="tech-pill">CI/CD</span>
+          <h3 data-i18n="architecture_layer_5">Calidad</h3>
+          <p data-i18n="architecture_layer_5_body">Pytest, contract tests, snapshot OpenAPI, Docker y GitHub Actions.</p>
+        </article>
+        <article class="glass arch-card reveal" data-stagger="5">
+          <span class="tech-pill">Grafana</span>
+          <h3 data-i18n="architecture_layer_6">Observabilidad</h3>
+          <p data-i18n="architecture_layer_6_body">Healthcheck, métricas Prometheus y paneles para seguimiento técnico.</p>
         </article>
       </div>
     </section>
 
-    <section class="container section reveal metrics snap-section">
+    <section id="project" class="container section reveal snap-section">
       <div class="section-heading">
-        <p class="eyebrow" data-i18n="metrics_badge">Rendimiento</p>
-        <h2 data-i18n="metrics_title">Indicadores de una operacion conectada</h2>
+        <p class="eyebrow" data-i18n="project_badge">Proyecto académico</p>
+        <h2 data-i18n="project_title">Desarrollado con Scrum en tres sprints</h2>
       </div>
-      <div class="metrics-grid">
-        <article class="glass metric-card reveal">
-          <strong><span data-counter="240">240</span>+</strong>
-          <p data-i18n="metrics_1">Endpoints y acciones cubiertas en API + app.</p>
+      <div class="project-grid">
+        <article class="glass sprint-card reveal" data-stagger="0">
+          <span class="sprint-number">Sprint 1</span>
+          <h3 data-i18n="sprint_1_title">Base funcional</h3>
+          <p data-i18n="sprint_1_body">CRUD de productos y stock, escaneo móvil, autenticación y primeros eventos.</p>
         </article>
-        <article class="glass metric-card reveal">
-          <strong><span data-counter="5">5</span>m</strong>
-          <p data-i18n="metrics_2">Frecuencia por defecto del escaneo de alertas de stock bajo.</p>
+        <article class="glass sprint-card reveal" data-stagger="1">
+          <span class="sprint-number">Sprint 2</span>
+          <h3 data-i18n="sprint_2_title">Procesamiento y UX</h3>
+          <p data-i18n="sprint_2_body">Workers, alertas, reportes, cola offline, pantallas Android y feedback de sincronizacion.</p>
         </article>
-        <article class="glass metric-card reveal">
-          <strong><span data-counter="3">3</span></strong>
-          <p data-i18n="metrics_3">Sprints de evolucion con foco en calidad y defensa tecnica.</p>
+        <article class="glass sprint-card reveal" data-stagger="2">
+          <span class="sprint-number">Sprint 3</span>
+          <h3 data-i18n="sprint_3_title">Calidad y defensa</h3>
+          <p data-i18n="sprint_3_body">Importaciones CSV, auditoría, OpenAPI, tests de contrato, CI/CD y observabilidad.</p>
         </article>
       </div>
     </section>
 
-    <section id="cta" class="container section reveal snap-section">
-      <article class="glass cta-card">
-        <p class="eyebrow" data-i18n="cta_badge">IoTrack</p>
-        <h2 data-i18n="cta_title">Convierte inventario en decisiones con datos en tiempo real</h2>
+    <section id="author" class="container section reveal snap-section">
+      <article class="glass cta-card academic-card reveal">
+        <a class="author-school-link" href="https://pro2fp.es" target="_blank" rel="noreferrer" aria-label="Visitar Pro2FP">
+          <img src={`${basePath}assets/logos/pro2fp.png`} alt="Pro2FP" loading="lazy" />
+        </a>
+        <p class="eyebrow" data-i18n="cta_badge">Sobre el autor</p>
+        <h2 data-i18n="cta_title">IoTrack nace como proyecto de 2º DAM en Pro2FP</h2>
         <p data-i18n="cta_body">
-          Una landing disenada para mostrar una solucion completa: desde el escaneo en Android hasta analitica,
-          alertas y auditoria en backend.
+          Proyecto educativo desarrollado por Esteban Garcés Pérez para demostrar una solución completa de inventario, sensores simulados, app Android y backend desplegable.
         </p>
         <div class="cta-actions">
-          <a class="btn-primary" href="https://github.com/Speeson" target="_blank" rel="noreferrer" data-i18n="cta_primary">Ver proyectos</a>
-          <a class="btn-secondary" href="mailto:esteban@example.com" data-i18n="cta_secondary">Contactar</a>
+          <a class="btn-primary" href="https://speeson.github.io/CVLandingPage/" target="_blank" rel="noreferrer" data-i18n="cta_primary">Ver mi landing personal</a>
+          <a class="btn-secondary btn-with-icon" href="https://github.com/Speeson" target="_blank" rel="noreferrer">
+            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2.3a9.8 9.8 0 0 0-3.1 19.1c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.2-3.5-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5A3.9 3.9 0 0 1 6.7 8.7c-.1-.3-.5-1.3.1-2.8 0 0 .9-.3 2.9 1a9.7 9.7 0 0 1 5.3 0c2-1.3 2.9-1 2.9-1 .6 1.5.2 2.5.1 2.8a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.7 5 .4.3.8 1 .8 2v2.5c0 .3.2.6.8.5A9.8 9.8 0 0 0 12 2.3Z"></path>
+            </svg>
+            <span data-i18n="cta_secondary">Ver GitHub</span>
+          </a>
         </div>
       </article>
     </section>
@@ -232,120 +322,180 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <script is:inline>
     const dictionary = {
       es: {
-        nav_solution: "Solucion",
-        nav_features: "Funciones",
+        nav_solution: "Flujo",
+        nav_app: "App",
+        nav_integration: "Integraciones",
         nav_architecture: "Arquitectura",
-        nav_contact: "Contacto",
-        hero_badge: "Inventario inteligente para equipos modernos",
+        nav_project: "Proyecto",
+        nav_author: "Autor",
+        hero_badge: "Proyecto académico de inventario inteligente",
         hero_app_name: "IoTrack",
         hero_title: "Controla stock, eventos y trazabilidad en tiempo real",
         hero_copy:
-          "IoTrack conecta escaneo Android, API FastAPI, PostgreSQL y eventos IoT simulados para crear un flujo operativo robusto, auditable y preparado para escalar.",
-        hero_cta_primary: "Explorar plataforma",
-        hero_cta_secondary: "Ver arquitectura",
-        hero_panel_1_label: "Eventos procesados",
-        hero_panel_2_label: "Disponibilidad API",
-        hero_panel_3_label: "Latencia media",
+          "IoTrack conecta una app Android, una API FastAPI, PostgreSQL y eventos IoT simulados para demostrar un sistema de inventario seguro, auditable y desplegable.",
+        hero_cta_primary: "Ver flujo operativo",
+        hero_cta_secondary: "Ver la app",
+        hero_panel_1_label: "Inventario inteligente",
+        hero_panel_1_value: "Productos, stock y movimientos trazables",
+        hero_panel_2_label: "Eventos IoT simulados",
+        hero_panel_2_value: "Sensores, cola asíncrona y workers",
+        hero_panel_3_label: "Android + Backend",
+        hero_panel_3_value: "Escaneo, etiquetas, API y base de datos",
         solution_badge: "Flujo operativo IoTrack",
         solution_title: "Una sola fuente de verdad para tu inventario",
         solution_step1_title: "Captura",
-        solution_step1_body: "Movimientos por escaneo de barras y eventos de sensores simulados.",
+        solution_step1_body: "Escaneo de códigos de barras, movimientos manuales y eventos IoT simulados.",
         solution_step2_title: "Procesa",
-        solution_step2_body: "Cola asyncrona con workers para idempotencia, reintentos y trazabilidad.",
+        solution_step2_body: "Eventos en cola, workers, reintentos, idempotencia y trazabilidad.",
         solution_step3_title: "Decide",
-        solution_step3_body: "Alertas de bajo stock, reportes de turnover y auditoria completa por rol.",
-        features_badge: "Capacidades clave",
-        features_title: "Tecnologia orientada a operaciones reales",
-        feature_1_title: "Auth + Roles",
-        feature_1_body: "JWT con permisos USER, MANAGER y ADMIN en endpoints de negocio.",
-        feature_2_title: "Android Productivo",
-        feature_2_body: "Escaneo CameraX/ML Kit, cola offline y soporte de impresion de etiquetas.",
-        feature_3_title: "Eventos IoT",
-        feature_3_body: "Ingesta de eventos simulados y procesamiento asincrono con Redis + Celery.",
-        feature_4_title: "Observabilidad",
-        feature_4_body: "Health checks, metricas Prometheus y paneles de seguimiento en Grafana.",
-        feature_5_title: "Import CSV",
-        feature_5_body: "Importaciones controladas con cuarentena y aprobacion de lotes.",
-        feature_6_title: "Auditoria",
-        feature_6_body: "Trazabilidad por entidad, accion y usuario para defensa y compliance.",
+        solution_step3_body: "Alertas de stock bajo, reportes de rotación y auditoría por rol.",
+        app_badge: "App Android",
+        app_title: "Inventario operable desde el móvil",
+        app_phone_kicker: "IoTrack Mobile",
+        app_phone_title: "Escanea, confirma y sincroniza",
+        app_card_1_title: "Escaneo con cámara",
+        app_card_1_body: "CameraX y ML Kit leen códigos de barras para abrir el flujo de movimiento.",
+        app_card_2_title: "Operación offline",
+        app_card_2_body: "Room mantiene caché local, cola de errores y reintentos cuando vuelve la conexión.",
+        app_card_3_title: "Stock y alertas",
+        app_card_3_body: "Pantallas para productos, stocks, eventos, rotación, umbrales y alertas.",
+        app_card_4_title: "Etiquetas Bluetooth",
+        app_card_4_body: "Impresión de etiquetas desde Android mediante integración con SDK de NIIMBOT.",
+        iot_badge: "Sensores IoT simulados",
+        iot_title: "Eventos simulados, comportamiento de sistema real",
+        iot_card_1_title: "Eventos desacoplados",
+        iot_card_1_body: "La API registra eventos de entrada, salida o ajuste y los deja listos para procesarse.",
+        iot_card_2_title: "Workers y cola",
+        iot_card_2_body: "Redis y Celery ejecutan el procesamiento en segundo plano con reintentos.",
+        iot_card_3_title: "Estados trazables",
+        iot_card_3_body: "Cada evento puede quedar pendiente, procesado o fallido con información de error.",
+        iot_card_4_title: "Idempotencia",
+        iot_card_4_body: "Las claves idempotentes ayudan a evitar duplicados cuando hay reintentos.",
+        integration_badge: "Integraciones",
+        integration_title: "Etiquetado físico conectado al inventario",
+        integration_card_title: "Impresión Bluetooth desde Android",
+        integration_card_body:
+          "IoTrack integra el SDK oficial de NIIMBOT para imprimir etiquetas desde la app y cerrar el flujo entre producto digital y etiqueta física.",
+        integration_note:
+          "Uso académico, demostrativo y sin finalidad comercial. IoTrack no está afiliado, patrocinado ni respaldado oficialmente por NIIMBOT.",
         architecture_badge: "Arquitectura",
-        architecture_title: "Diseno modular para escalar sin perder control",
-        architecture_layer_1: "Frontend Android (Kotlin)",
-        architecture_layer_1_body: "App con escaneo, sesiones persistentes y cache local para modo offline.",
-        architecture_layer_2: "Backend FastAPI",
-        architecture_layer_2_body: "API REST con JWT, validaciones, reglas de dominio y contrato OpenAPI.",
-        architecture_layer_3: "Datos + Cola",
-        architecture_layer_3_body: "PostgreSQL, SQLAlchemy, Redis, workers Celery y jobs programados.",
-        metrics_badge: "Rendimiento",
-        metrics_title: "Indicadores de una operacion conectada",
-        metrics_1: "Endpoints y acciones cubiertas en API + app.",
-        metrics_2: "Frecuencia por defecto del escaneo de alertas de stock bajo.",
-        metrics_3: "Sprints de evolucion con foco en calidad y defensa tecnica.",
-        cta_badge: "IoTrack",
-        cta_title: "Convierte inventario en decisiones con datos en tiempo real",
+        architecture_title: "Una app móvil conectada a un backend auditable",
+        architecture_layer_1: "Android",
+        architecture_layer_1_body: "Retrofit, OkHttp, Room, CameraX, ML Kit, sesiones persistentes y soporte offline.",
+        architecture_layer_2: "API REST",
+        architecture_layer_2_body: "JWT, roles USER/MANAGER/ADMIN, OpenAPI, validaciones y reglas de dominio.",
+        architecture_layer_3: "Datos",
+        architecture_layer_3_body: "SQLAlchemy, Alembic, productos, stocks, movimientos, eventos, auditoría e importaciones.",
+        architecture_layer_4: "Procesamiento",
+        architecture_layer_4_body: "Workers, Celery Beat, alertas de stock bajo, reintentos y jobs programados.",
+        architecture_layer_5: "Calidad",
+        architecture_layer_5_body: "Pytest, contract tests, snapshot OpenAPI, Docker y GitHub Actions.",
+        architecture_layer_6: "Observabilidad",
+        architecture_layer_6_body: "Healthcheck, métricas Prometheus y paneles para seguimiento técnico.",
+        project_badge: "Proyecto académico",
+        project_title: "Desarrollado con Scrum en tres sprints",
+        sprint_1_title: "Base funcional",
+        sprint_1_body: "CRUD de productos y stock, escaneo móvil, autenticación y primeros eventos.",
+        sprint_2_title: "Procesamiento y UX",
+        sprint_2_body: "Workers, alertas, reportes, cola offline, pantallas Android y feedback de sincronizacion.",
+        sprint_3_title: "Calidad y defensa",
+        sprint_3_body: "Importaciones CSV, auditoría, OpenAPI, tests de contrato, CI/CD y observabilidad.",
+        cta_badge: "Sobre el autor",
+        cta_title: "IoTrack nace como proyecto de 2º DAM en Pro2FP",
         cta_body:
-          "Una landing disenada para mostrar una solucion completa: desde el escaneo en Android hasta analitica, alertas y auditoria en backend.",
-        cta_primary: "Ver proyectos",
-        cta_secondary: "Contactar",
-        footer_copy: "Sistema de inventariado con sensores IoT simulados."
+          "Proyecto educativo desarrollado por Esteban Garcés Pérez para demostrar una solución completa de inventario, sensores simulados, app Android y backend desplegable.",
+        cta_primary: "Ver mi landing personal",
+        cta_secondary: "Ver GitHub",
+        author_affiliation: "Centro formativo",
+        footer_copy: "Proyecto académico de inventario con sensores IoT simulados, uso educativo y sin ánimo de lucro."
       },
       en: {
-        nav_solution: "Solution",
-        nav_features: "Features",
+        nav_solution: "Flow",
+        nav_app: "App",
+        nav_integration: "Integrations",
         nav_architecture: "Architecture",
-        nav_contact: "Contact",
-        hero_badge: "Smart inventory for modern teams",
+        nav_project: "Project",
+        nav_author: "Author",
+        hero_badge: "Academic smart inventory project",
         hero_app_name: "IoTrack",
         hero_title: "Track stock, events, and traceability in real time",
         hero_copy:
-          "IoTrack connects Android scanning, FastAPI backend, PostgreSQL, and simulated IoT events into one robust, auditable and scalable operational flow.",
-        hero_cta_primary: "Explore platform",
-        hero_cta_secondary: "View architecture",
-        hero_panel_1_label: "Processed events",
-        hero_panel_2_label: "API uptime",
-        hero_panel_3_label: "Average latency",
+          "IoTrack connects an Android app, a FastAPI backend, PostgreSQL, and simulated IoT events to demonstrate a secure, auditable, deployable inventory system.",
+        hero_cta_primary: "View operational flow",
+        hero_cta_secondary: "View the app",
+        hero_panel_1_label: "Smart inventory",
+        hero_panel_1_value: "Traceable products, stock and movements",
+        hero_panel_2_label: "Simulated IoT events",
+        hero_panel_2_value: "Sensors, async queue and workers",
+        hero_panel_3_label: "Android + Backend",
+        hero_panel_3_value: "Scanning, labels, API and database",
         solution_badge: "IoTrack operational flow",
         solution_title: "A single source of truth for your inventory",
         solution_step1_title: "Capture",
-        solution_step1_body: "Movements from barcode scanning and simulated sensor events.",
+        solution_step1_body: "Barcode scanning, manual movements and simulated IoT events.",
         solution_step2_title: "Process",
-        solution_step2_body: "Async queue workers for idempotency, retries and full traceability.",
+        solution_step2_body: "Queued events, workers, retries, idempotency and traceability.",
         solution_step3_title: "Decide",
-        solution_step3_body: "Low stock alerts, turnover reports and role-based auditing.",
-        features_badge: "Key capabilities",
-        features_title: "Technology built for real operations",
-        feature_1_title: "Auth + Roles",
-        feature_1_body: "JWT security model with USER, MANAGER and ADMIN permissions.",
-        feature_2_title: "Production Android",
-        feature_2_body: "CameraX/ML Kit scanning, offline queue and label-printing support.",
-        feature_3_title: "IoT Events",
-        feature_3_body: "Simulated event ingestion and async processing with Redis + Celery.",
-        feature_4_title: "Observability",
-        feature_4_body: "Health checks, Prometheus metrics and Grafana dashboards.",
-        feature_5_title: "CSV Import",
-        feature_5_body: "Controlled imports with quarantine and review flow.",
-        feature_6_title: "Audit Trail",
-        feature_6_body: "Entity-action-user traceability for compliance and technical defense.",
+        solution_step3_body: "Low-stock alerts, turnover reports and role-based auditing.",
+        app_badge: "Android App",
+        app_title: "Inventory operations from a mobile device",
+        app_phone_kicker: "IoTrack Mobile",
+        app_phone_title: "Scan, confirm and sync",
+        app_card_1_title: "Camera scanning",
+        app_card_1_body: "CameraX and ML Kit read barcodes to start the movement flow.",
+        app_card_2_title: "Offline operation",
+        app_card_2_body: "Room keeps local cache, failed-event queues and retries when connection returns.",
+        app_card_3_title: "Stock and alerts",
+        app_card_3_body: "Screens for products, stocks, events, turnover, thresholds and alerts.",
+        app_card_4_title: "Bluetooth labels",
+        app_card_4_body: "Label printing from Android through the NIIMBOT SDK integration.",
+        iot_badge: "Simulated IoT sensors",
+        iot_title: "Simulated events with real-system behavior",
+        iot_card_1_title: "Decoupled events",
+        iot_card_1_body: "The API records in, out or adjust events and leaves them ready for processing.",
+        iot_card_2_title: "Workers and queue",
+        iot_card_2_body: "Redis and Celery run background processing with retries.",
+        iot_card_3_title: "Traceable states",
+        iot_card_3_body: "Each event can remain pending, processed or failed with error information.",
+        iot_card_4_title: "Idempotency",
+        iot_card_4_body: "Idempotency keys help avoid duplicates when retries happen.",
+        integration_badge: "Integrations",
+        integration_title: "Physical labeling connected to inventory",
+        integration_card_title: "Bluetooth printing from Android",
+        integration_card_body:
+          "IoTrack integrates the official NIIMBOT SDK to print labels from the app and close the loop between digital product data and physical labels.",
+        integration_note:
+          "Academic, demonstrative and non-commercial use. IoTrack is not affiliated with, sponsored by, or officially endorsed by NIIMBOT.",
         architecture_badge: "Architecture",
-        architecture_title: "Modular design to scale while keeping control",
-        architecture_layer_1: "Android Frontend (Kotlin)",
-        architecture_layer_1_body: "Scanner app with persistent sessions and offline local cache.",
-        architecture_layer_2: "FastAPI Backend",
-        architecture_layer_2_body: "REST API with JWT, domain validations and OpenAPI contract tests.",
-        architecture_layer_3: "Data + Queue",
-        architecture_layer_3_body: "PostgreSQL, SQLAlchemy, Redis, Celery workers and scheduled jobs.",
-        metrics_badge: "Performance",
-        metrics_title: "Signals of a connected operation",
-        metrics_1: "Endpoints and actions covered across API and app.",
-        metrics_2: "Default low-stock scan interval.",
-        metrics_3: "Delivery sprints focused on quality and reliability.",
-        cta_badge: "IoTrack",
-        cta_title: "Turn inventory into decisions powered by live data",
+        architecture_title: "A mobile app connected to an auditable backend",
+        architecture_layer_1: "Android",
+        architecture_layer_1_body: "Retrofit, OkHttp, Room, CameraX, ML Kit, persistent sessions and offline support.",
+        architecture_layer_2: "REST API",
+        architecture_layer_2_body: "JWT, USER/MANAGER/ADMIN roles, OpenAPI, validations and domain rules.",
+        architecture_layer_3: "Data",
+        architecture_layer_3_body: "SQLAlchemy, Alembic, products, stocks, movements, events, audit trail and imports.",
+        architecture_layer_4: "Processing",
+        architecture_layer_4_body: "Workers, Celery Beat, low-stock alerts, retries and scheduled jobs.",
+        architecture_layer_5: "Quality",
+        architecture_layer_5_body: "Pytest, contract tests, OpenAPI snapshot, Docker and GitHub Actions.",
+        architecture_layer_6: "Observability",
+        architecture_layer_6_body: "Healthcheck, Prometheus metrics and dashboards for technical monitoring.",
+        project_badge: "Academic project",
+        project_title: "Developed with Scrum across three sprints",
+        sprint_1_title: "Functional base",
+        sprint_1_body: "Product and stock CRUD, mobile scanning, authentication and first events.",
+        sprint_2_title: "Processing and UX",
+        sprint_2_body: "Workers, alerts, reports, offline queue, Android screens and sync feedback.",
+        sprint_3_title: "Quality and defense",
+        sprint_3_body: "CSV imports, audit trail, OpenAPI, contract tests, CI/CD and observability.",
+        cta_badge: "About the author",
+        cta_title: "IoTrack was created as a 2nd-year DAM project at Pro2FP",
         cta_body:
-          "A landing page crafted to showcase an end-to-end solution, from Android scanning to analytics, alerts and backend auditing.",
-        cta_primary: "View projects",
-        cta_secondary: "Contact",
-        footer_copy: "Inventory management with simulated IoT sensors."
+          "Educational project developed by Esteban Garcés Pérez to demonstrate a complete inventory solution with simulated sensors, Android app and deployable backend.",
+        cta_primary: "View my personal landing",
+        cta_secondary: "View GitHub",
+        author_affiliation: "Training center",
+        footer_copy: "Academic inventory project with simulated IoT sensors, educational and non-commercial use."
       }
     };
 
@@ -357,6 +507,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     const hexField = document.getElementById("hexField");
     const revealNodes = document.querySelectorAll(".reveal");
     const counterNodes = document.querySelectorAll("[data-counter]");
+    const capabilityCards = [...document.querySelectorAll(".capability-card")];
+    const appPreviewImage = document.getElementById("appPreviewImage");
     const flowSection = document.getElementById("solution");
     const flowTrack = document.querySelector(".flow-track");
     const flowNodes = [...document.querySelectorAll(".flow-node")];
@@ -606,13 +758,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (!targetSection) return;
 
       const header = document.querySelector(".site-header");
-      const headerHeight = header ? header.getBoundingClientRect().height + 18 : 0;
+      const headerBaseHeight = header ? header.getBoundingClientRect().height : 0;
+      const headerHeight = headerBaseHeight + 18;
+      const tightHeaderHeight = -8;
       const rect = targetSection.getBoundingClientRect();
       const absoluteTop = window.scrollY + rect.top;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const snapStyle = targetSection.dataset.snapStyle;
 
       let targetTop;
-      if (rect.height >= window.innerHeight * 0.88) {
+      if (snapStyle === "tight") {
+        targetTop = absoluteTop - tightHeaderHeight;
+      } else if (rect.height >= window.innerHeight * 0.88) {
         targetTop = absoluteTop - headerHeight;
       } else {
         targetTop = absoluteTop - (window.innerHeight - rect.height) / 2 - headerHeight * 0.2;
@@ -687,6 +844,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
       setTheme(next);
     });
+
+    if (appPreviewImage) {
+      const defaultPreview = appPreviewImage.dataset.defaultPreview || appPreviewImage.getAttribute("src") || "";
+      const setPreview = (src) => {
+        if (!src || appPreviewImage.getAttribute("src") === src) return;
+        appPreviewImage.classList.add("is-transitioning");
+        window.setTimeout(() => {
+          appPreviewImage.setAttribute("src", src);
+          appPreviewImage.classList.remove("is-transitioning");
+        }, 140);
+      };
+
+      capabilityCards.forEach((card) => {
+        const preview = card.dataset.preview || defaultPreview;
+        card.addEventListener("mouseenter", () => setPreview(preview));
+        card.addEventListener("focusin", () => setPreview(preview));
+        card.addEventListener("mouseleave", () => setPreview(defaultPreview));
+        card.addEventListener("focusout", () => setPreview(defaultPreview));
+      });
+    }
 
     const savedLang = localStorage.getItem("iotrack-lang");
     const browserLang = navigator.language.toLowerCase().startsWith("en") ? "en" : "es";
