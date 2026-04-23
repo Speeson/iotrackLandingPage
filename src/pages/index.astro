@@ -32,7 +32,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <button class="lang-btn" data-lang-btn="en">EN</button>
         </div>
         <button class="theme-btn glass-light" id="themeToggle" type="button" aria-label="Toggle theme">
-          <span class="theme-icon">M</span>
+          <span class="theme-thumb" aria-hidden="true"></span>
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.7 14.4A8 8 0 0 1 9.6 3.3 8.6 8.6 0 1 0 20.7 14.4Z"></path>
+          </svg>
         </button>
       </div>
     </div>
@@ -372,6 +386,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     const setTheme = (theme) => {
       html.setAttribute("data-theme", theme);
       localStorage.setItem("iotrack-theme", theme);
+      if (themeToggle) {
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+        themeToggle.setAttribute("title", `Switch to ${nextTheme} mode`);
+      }
     };
 
     const animateCounter = (node) => {
@@ -428,29 +447,39 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       if (prefersReducedMotion || hexCells.length === 0) return;
 
       const origin = Math.floor(Math.random() * hexCells.length);
+      const diagonalDown = hexCols + 1;
+      const diagonalUp = -hexCols - 1;
       const patterns = [
-        [0],
-        [0, 1, -1],
-        [0, hexCols, -hexCols],
-        [0, 1, hexCols + 1, hexCols],
-        [0, -1, -hexCols - 1, -hexCols],
-        [0, hexCols, hexCols * 2],
-        [0, -hexCols, -hexCols * 2],
-        [0, 1, -1, hexCols, -hexCols]
+        [0, 1, 2, 3, 4, 5],
+        [0, -1, -2, -3, -4, -5],
+        [0, hexCols, hexCols * 2, hexCols * 3, hexCols * 4],
+        [0, -hexCols, -hexCols * 2, -hexCols * 3, -hexCols * 4],
+        [0, diagonalDown, diagonalDown * 2, diagonalDown * 3, diagonalDown * 4],
+        [0, diagonalUp, diagonalUp * 2, diagonalUp * 3, diagonalUp * 4],
+        [0, 1, -1, hexCols, -hexCols, diagonalDown, diagonalUp],
+        [0, 1, 2, hexCols + 1, hexCols + 2, hexCols * 2 + 2],
+        [0, -1, -2, -hexCols - 1, -hexCols - 2, -hexCols * 2 - 2],
+        [0, hexCols, hexCols + 1, 1, -hexCols, -hexCols - 1, -1],
+        [0, 1, hexCols + 1, hexCols * 2 + 1, hexCols * 2, hexCols * 2 - 1, hexCols - 1],
+        [0, -1, -hexCols - 1, -hexCols * 2 - 1, -hexCols * 2, -hexCols * 2 + 1, -hexCols + 1]
       ];
       const offsets = patterns[Math.floor(Math.random() * patterns.length)];
+      const burstCount = Math.random() > 0.58 ? 2 : 1;
 
-      offsets.forEach((offset, step) => {
-        const cell = hexCells[origin + offset];
-        if (!cell) return;
+      for (let burst = 0; burst < burstCount; burst += 1) {
+        const burstOrigin = burst === 0 ? origin : Math.floor(Math.random() * hexCells.length);
+        offsets.forEach((offset, step) => {
+          const cell = hexCells[burstOrigin + offset];
+          if (!cell) return;
 
-        window.setTimeout(() => {
-          cell.classList.add(step === 0 ? "is-charged" : "is-spark");
           window.setTimeout(() => {
-            cell.classList.remove("is-charged", "is-spark");
-          }, step === 0 ? 1850 : 1350);
-        }, step * (150 + Math.random() * 120));
-      });
+            cell.classList.add(step === 0 ? "is-charged" : "is-spark");
+            window.setTimeout(() => {
+              cell.classList.remove("is-charged", "is-spark");
+            }, step === 0 ? 2300 : 1750);
+          }, burst * 220 + step * (135 + Math.random() * 95));
+        });
+      }
     };
 
     const startGrapheneSky = () => {
@@ -460,7 +489,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       for (let i = 0; i < 4; i += 1) {
         window.setTimeout(energizeGraphene, i * 420);
       }
-      grapheneTimer = window.setInterval(energizeGraphene, 1050);
+      grapheneTimer = window.setInterval(energizeGraphene, 1350);
     };
 
     const queueFlow = (fn, ms) => {
