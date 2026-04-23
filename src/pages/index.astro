@@ -60,10 +60,14 @@ const basePath = import.meta.env.BASE_URL;
     <section class="hero container reveal snap-section">
       <h1 class="hero-app-title" data-i18n="hero_app_name">IoTrack</h1>
       <p class="hero-subtitle" data-i18n="hero_title">Controla stock, eventos y trazabilidad en tiempo real</p>
-      <p class="eyebrow" data-i18n="hero_badge">Inventario inteligente para equipos modernos</p>
+      <p class="eyebrow" data-i18n="hero_badge">Inventario inteligente para equipos que necesitan control real</p>
       <p class="hero-copy" data-i18n="hero_copy">
-        IoTrack conecta escaneo Android, API FastAPI, PostgreSQL y eventos IoT simulados para crear un flujo
-        operativo robusto, auditable y preparado para escalar.
+        IoTrack digitaliza el inventario para centralizar productos, movimientos y eventos en una sola herramienta
+        conectada entre móvil y backend.
+      </p>
+      <p class="hero-value" data-i18n="hero_value">
+        Reduce errores manuales, acelera entradas y salidas y mantiene el stock siempre trazable antes de que los
+        fallos lleguen a la operación.
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#solution" data-i18n="hero_cta_primary">Explorar plataforma</a>
@@ -133,6 +137,31 @@ const basePath = import.meta.env.BASE_URL;
           </div>
           <h3 class="flow-title" data-i18n="solution_step3_title">Decide</h3>
           <p class="flow-body" data-i18n="solution_step3_body">Alertas de bajo stock, reportes de turnover y auditoría completa por rol.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="benefits" class="container section reveal snap-section">
+      <div class="section-heading benefits-heading">
+        <p class="eyebrow" data-i18n="benefits_badge">Propuesta de valor</p>
+        <h2 data-i18n="benefits_title">Menos errores, más rapidez y un inventario siempre bajo control</h2>
+      </div>
+      <div class="benefits-grid">
+        <article class="glass benefit-card reveal" data-stagger="0">
+          <h3 data-i18n="benefit_1_title">Reduce errores manuales</h3>
+          <p data-i18n="benefit_1_body">Cada movimiento queda registrado con contexto, usuario y trazabilidad para evitar desajustes de stock.</p>
+        </article>
+        <article class="glass benefit-card reveal" data-stagger="1">
+          <h3 data-i18n="benefit_2_title">Acelera las operaciones</h3>
+          <p data-i18n="benefit_2_body">Escaneo con cámara, confirmación de movimientos y sincronización desde móvil para trabajar más rápido.</p>
+        </article>
+        <article class="glass benefit-card reveal" data-stagger="2">
+          <h3 data-i18n="benefit_3_title">Trazabilidad completa</h3>
+          <p data-i18n="benefit_3_body">Productos, eventos, alertas y auditoría quedan conectados para saber qué pasó, cuándo y por qué.</p>
+        </article>
+        <article class="glass benefit-card reveal" data-stagger="3">
+          <h3 data-i18n="benefit_4_title">Anticípate al problema</h3>
+          <p data-i18n="benefit_4_body">Alertas de stock bajo y reportes ayudan a tomar decisiones antes de llegar a roturas o cuellos de botella.</p>
         </article>
       </div>
     </section>
@@ -257,31 +286,58 @@ const basePath = import.meta.env.BASE_URL;
       <div class="architecture-grid">
         <article class="glass arch-card reveal" data-stagger="0">
           <span class="tech-pill">Kotlin</span>
+          <div class="tech-icon tech-icon--kotlin" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <defs>
+                <linearGradient id="kotlinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7f52ff"></stop>
+                  <stop offset="55%" stop-color="#ff6b81"></stop>
+                  <stop offset="100%" stop-color="#ffb300"></stop>
+                </linearGradient>
+              </defs>
+              <path fill="url(#kotlinGrad)" d="M8 8h32L24 24 40 40H8l16-16Z"></path>
+            </svg>
+          </div>
           <h3 data-i18n="architecture_layer_1">Android</h3>
           <p data-i18n="architecture_layer_1_body">Retrofit, OkHttp, Room, CameraX, ML Kit, sesiones persistentes y soporte offline.</p>
         </article>
         <article class="glass arch-card reveal" data-stagger="1">
           <span class="tech-pill">FastAPI</span>
+          <div class="tech-icon tech-icon--fastapi" aria-hidden="true">
+            <img src={`${basePath}assets/logos/fastapi.webp`} alt="" loading="lazy" />
+          </div>
           <h3 data-i18n="architecture_layer_2">API REST</h3>
           <p data-i18n="architecture_layer_2_body">JWT, roles USER/MANAGER/ADMIN, OpenAPI, validaciones y reglas de dominio.</p>
         </article>
         <article class="glass arch-card reveal" data-stagger="2">
           <span class="tech-pill">PostgreSQL</span>
+          <div class="tech-icon tech-icon--postgres" aria-hidden="true">
+            <img src={`${basePath}assets/logos/postgresql.png`} alt="" loading="lazy" />
+          </div>
           <h3 data-i18n="architecture_layer_3">Datos</h3>
           <p data-i18n="architecture_layer_3_body">SQLAlchemy, Alembic, productos, stocks, movimientos, eventos, auditoría e importaciones.</p>
         </article>
         <article class="glass arch-card reveal" data-stagger="3">
           <span class="tech-pill">Redis + Celery</span>
+          <div class="tech-icon tech-icon--redis" aria-hidden="true">
+            <img src={`${basePath}assets/logos/redis.webp`} alt="" loading="lazy" />
+          </div>
           <h3 data-i18n="architecture_layer_4">Procesamiento</h3>
           <p data-i18n="architecture_layer_4_body">Workers, Celery Beat, alertas de stock bajo, reintentos y jobs programados.</p>
         </article>
         <article class="glass arch-card reveal" data-stagger="4">
           <span class="tech-pill">CI/CD</span>
+          <div class="tech-icon tech-icon--docker" aria-hidden="true">
+            <img src={`${basePath}assets/logos/docker.png`} alt="" loading="lazy" />
+          </div>
           <h3 data-i18n="architecture_layer_5">Calidad</h3>
           <p data-i18n="architecture_layer_5_body">Pytest, contract tests, snapshot OpenAPI, Docker y GitHub Actions.</p>
         </article>
         <article class="glass arch-card reveal" data-stagger="5">
           <span class="tech-pill">Grafana</span>
+          <div class="tech-icon tech-icon--grafana" aria-hidden="true">
+            <img src={`${basePath}assets/logos/grafana.webp`} alt="" loading="lazy" />
+          </div>
           <h3 data-i18n="architecture_layer_6">Observabilidad</h3>
           <p data-i18n="architecture_layer_6_body">Healthcheck, métricas Prometheus y paneles para seguimiento técnico.</p>
         </article>
@@ -349,11 +405,13 @@ const basePath = import.meta.env.BASE_URL;
         nav_architecture: "Arquitectura",
         nav_project: "Proyecto",
         nav_author: "Autor",
-        hero_badge: "Proyecto académico de inventario inteligente",
+        hero_badge: "Inventario inteligente para equipos que necesitan control real",
         hero_app_name: "IoTrack",
         hero_title: "Controla stock, eventos y trazabilidad en tiempo real",
         hero_copy:
-          "IoTrack conecta una app Android, una API FastAPI, PostgreSQL y eventos IoT simulados para demostrar un sistema de inventario seguro, auditable y desplegable.",
+          "IoTrack digitaliza el inventario para centralizar productos, movimientos y eventos en una sola herramienta conectada entre móvil y backend.",
+        hero_value:
+          "Reduce errores manuales, acelera entradas y salidas y mantiene el stock siempre trazable antes de que los fallos lleguen a la operación.",
         hero_cta_primary: "Ver flujo operativo",
         hero_cta_secondary: "Ver la app",
         hero_panel_1_label: "Inventario inteligente",
@@ -370,6 +428,16 @@ const basePath = import.meta.env.BASE_URL;
         solution_step2_body: "Eventos en cola, workers, reintentos, idempotencia y trazabilidad.",
         solution_step3_title: "Decide",
         solution_step3_body: "Alertas de stock bajo, reportes de rotación y auditoría por rol.",
+        benefits_badge: "Propuesta de valor",
+        benefits_title: "Menos errores, más rapidez y un inventario siempre bajo control",
+        benefit_1_title: "Reduce errores manuales",
+        benefit_1_body: "Cada movimiento queda registrado con contexto, usuario y trazabilidad para evitar desajustes de stock.",
+        benefit_2_title: "Acelera las operaciones",
+        benefit_2_body: "Escaneo con cámara, confirmación de movimientos y sincronización desde móvil para trabajar más rápido.",
+        benefit_3_title: "Trazabilidad completa",
+        benefit_3_body: "Productos, eventos, alertas y auditoría quedan conectados para saber qué pasó, cuándo y por qué.",
+        benefit_4_title: "Anticípate al problema",
+        benefit_4_body: "Alertas de stock bajo y reportes ayudan a tomar decisiones antes de llegar a roturas o cuellos de botella.",
         app_badge: "App Android",
         app_title: "Inventario operable desde el móvil",
         app_phone_kicker: "IoTrack Mobile",
@@ -437,11 +505,13 @@ const basePath = import.meta.env.BASE_URL;
         nav_architecture: "Architecture",
         nav_project: "Project",
         nav_author: "Author",
-        hero_badge: "Academic smart inventory project",
+        hero_badge: "Smart inventory for teams that need real control",
         hero_app_name: "IoTrack",
         hero_title: "Track stock, events, and traceability in real time",
         hero_copy:
-          "IoTrack connects an Android app, a FastAPI backend, PostgreSQL, and simulated IoT events to demonstrate a secure, auditable, deployable inventory system.",
+          "IoTrack digitizes inventory to centralize products, movements, and events in one connected workflow between mobile and backend.",
+        hero_value:
+          "Reduce manual errors, speed up inbound and outbound operations, and keep stock traceable before issues impact the operation.",
         hero_cta_primary: "View operational flow",
         hero_cta_secondary: "View the app",
         hero_panel_1_label: "Smart inventory",
@@ -458,6 +528,16 @@ const basePath = import.meta.env.BASE_URL;
         solution_step2_body: "Queued events, workers, retries, idempotency and traceability.",
         solution_step3_title: "Decide",
         solution_step3_body: "Low-stock alerts, turnover reports and role-based auditing.",
+        benefits_badge: "Value proposition",
+        benefits_title: "Fewer errors, faster operations, and inventory always under control",
+        benefit_1_title: "Reduce manual mistakes",
+        benefit_1_body: "Every movement is recorded with context, user identity, and traceability to avoid stock mismatches.",
+        benefit_2_title: "Speed up operations",
+        benefit_2_body: "Camera scanning, movement confirmation, and mobile sync make day-to-day work faster.",
+        benefit_3_title: "Full traceability",
+        benefit_3_body: "Products, events, alerts, and audit data stay connected so you always know what happened and why.",
+        benefit_4_title: "Anticipate issues",
+        benefit_4_body: "Low-stock alerts and reports help you act before shortages or bottlenecks appear.",
         app_badge: "Android App",
         app_title: "Inventory operations from a mobile device",
         app_phone_kicker: "IoTrack Mobile",
