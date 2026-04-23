@@ -17,8 +17,22 @@ const basePath = import.meta.env.BASE_URL;
   <header class="site-header glass">
     <div class="container header-inner">
       <a href="#top" class="brand">
-        <span class="brand-dot"></span>
-        <span>IoTrack</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path class="mark-hex" d="M16 8 32 8 40 24 32 40 16 40 8 24Z"></path>
+            <circle class="mark-node node-a" cx="17.2" cy="17.4" r="2.2"></circle>
+            <circle class="mark-node node-b" cx="30.8" cy="16.8" r="2.2"></circle>
+            <circle class="mark-node node-c" cx="32.8" cy="31" r="2.2"></circle>
+            <path class="mark-link" d="M18.9 18.7 23 22.3"></path>
+            <path class="mark-link" d="M28.8 18.1 25 22.4"></path>
+            <path class="mark-link" d="M30.9 29.4 25.4 25.2"></path>
+            <rect class="mark-box" x="16.4" y="22.3" width="11.8" height="9.6" rx="2.1"></rect>
+            <path class="mark-scan" d="M30.6 20.9v12.2"></path>
+            <path class="mark-scan" d="M33.9 22.5v9"></path>
+            <path class="mark-scan" d="M36.7 24.1v5.8"></path>
+          </svg>
+        </span>
+        <span class="brand-wordmark">IoTrack</span>
       </a>
 
       <nav class="nav-links" aria-label="Primary">

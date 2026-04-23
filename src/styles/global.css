@@ -251,17 +251,68 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  gap: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.005em;
 }
 
-.brand-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 999px;
-  background: linear-gradient(140deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 70%, transparent);
+.brand-mark {
+  width: 50px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) 18%, transparent));
+}
+
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: scaleX(1.12);
+  transform-origin: center;
+}
+
+.mark-hex,
+.mark-link,
+.mark-box,
+.mark-scan {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mark-hex {
+  stroke: color-mix(in srgb, var(--text) 34%, var(--accent) 66%);
+  stroke-width: 2.2;
+}
+
+.mark-link {
+  stroke: color-mix(in srgb, var(--text) 28%, var(--accent-2) 72%);
+  stroke-width: 1.9;
+}
+
+.mark-box {
+  stroke: color-mix(in srgb, var(--text) 42%, var(--accent) 58%);
+  stroke-width: 2;
+}
+
+.mark-scan {
+  stroke: color-mix(in srgb, var(--text) 18%, var(--accent-2) 82%);
+  stroke-width: 1.7;
+}
+
+.mark-node {
+  fill: color-mix(in srgb, var(--accent-2) 66%, #ffffff);
+}
+
+.brand-wordmark {
+  font-family: "Sora", "Segoe UI", sans-serif;
+  font-size: 1.14rem;
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in srgb, var(--text) 82%, var(--accent));
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .nav-links {
