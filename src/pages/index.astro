@@ -149,29 +149,50 @@ const basePath = import.meta.env.BASE_URL;
             <img
               id="appPreviewImage"
               src={`${basePath}assets/logos/screen.png`}
-              data-default-preview={`${basePath}assets/logos/screen.png`}
+              data-default-preview-dark={`${basePath}assets/logos/screen.png`}
+              data-default-preview-light={`${basePath}assets/logos/screen.png`}
               alt="Pantalla de login de IoTrack en Android"
               loading="lazy"
             />
           </div>
         </article>
         <div class="capability-grid">
-          <article class="glass capability-card reveal" data-stagger="0" data-preview={`${basePath}assets/logos/screen1.png`}>
+          <article
+            class="glass capability-card reveal"
+            data-stagger="0"
+            data-preview-dark={`${basePath}assets/logos/dark/screen1.png`}
+            data-preview-light={`${basePath}assets/logos/light/screen1.png`}
+          >
             <span class="card-index">01</span>
             <h3 data-i18n="app_card_1_title">Escaneo con cámara</h3>
             <p data-i18n="app_card_1_body">CameraX y ML Kit leen códigos de barras para abrir el flujo de movimiento.</p>
           </article>
-          <article class="glass capability-card reveal" data-stagger="1" data-preview={`${basePath}assets/logos/screen2.png`}>
+          <article
+            class="glass capability-card reveal"
+            data-stagger="1"
+            data-preview-dark={`${basePath}assets/logos/dark/screen2.png`}
+            data-preview-light={`${basePath}assets/logos/light/screen2.png`}
+          >
             <span class="card-index">02</span>
             <h3 data-i18n="app_card_2_title">Operación offline</h3>
             <p data-i18n="app_card_2_body">Room mantiene caché local, cola de errores y reintentos cuando vuelve la conexión.</p>
           </article>
-          <article class="glass capability-card reveal" data-stagger="2" data-preview={`${basePath}assets/logos/screen3.png`}>
+          <article
+            class="glass capability-card reveal"
+            data-stagger="2"
+            data-preview-dark={`${basePath}assets/logos/dark/screen3.png`}
+            data-preview-light={`${basePath}assets/logos/light/screen3.png`}
+          >
             <span class="card-index">03</span>
             <h3 data-i18n="app_card_3_title">Stock y alertas</h3>
             <p data-i18n="app_card_3_body">Pantallas para productos, stocks, eventos, rotación, umbrales y alertas.</p>
           </article>
-          <article class="glass capability-card reveal" data-stagger="3" data-preview={`${basePath}assets/logos/screen4.png`}>
+          <article
+            class="glass capability-card reveal"
+            data-stagger="3"
+            data-preview-dark={`${basePath}assets/logos/dark/screen4.png`}
+            data-preview-light={`${basePath}assets/logos/light/screen4.png`}
+          >
             <span class="card-index">04</span>
             <h3 data-i18n="app_card_4_title">Etiquetas Bluetooth</h3>
             <p data-i18n="app_card_4_body">Impresión de etiquetas desde Android mediante integración con SDK de NIIMBOT.</p>
@@ -524,6 +545,7 @@ const basePath = import.meta.env.BASE_URL;
     let hexCols = 0;
     let grapheneTimer = null;
     let grapheneResizeTimer = null;
+    let activeCapabilityCard = null;
 
     const setLang = (lang) => {
       const current = dictionary[lang] ? lang : "es";
@@ -547,6 +569,26 @@ const basePath = import.meta.env.BASE_URL;
         const nextTheme = theme === "dark" ? "light" : "dark";
         themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
         themeToggle.setAttribute("title", `Switch to ${nextTheme} mode`);
+      }
+      if (appPreviewImage) {
+        const previewTheme = theme === "light" ? "light" : "dark";
+        const defaultPreview =
+          previewTheme === "light"
+            ? appPreviewImage.dataset.defaultPreviewLight || appPreviewImage.getAttribute("src") || ""
+            : appPreviewImage.dataset.defaultPreviewDark || appPreviewImage.getAttribute("src") || "";
+        const previewFromCard = activeCapabilityCard
+          ? previewTheme === "light"
+            ? activeCapabilityCard.dataset.previewLight
+            : activeCapabilityCard.dataset.previewDark
+          : "";
+        const nextPreview = previewFromCard || defaultPreview;
+        if (nextPreview && appPreviewImage.getAttribute("src") !== nextPreview) {
+          appPreviewImage.classList.add("is-transitioning");
+          window.setTimeout(() => {
+            appPreviewImage.setAttribute("src", nextPreview);
+            appPreviewImage.classList.remove("is-transitioning");
+          }, 140);
+        }
       }
     };
 
@@ -846,7 +888,14 @@ const basePath = import.meta.env.BASE_URL;
     });
 
     if (appPreviewImage) {
-      const defaultPreview = appPreviewImage.dataset.defaultPreview || appPreviewImage.getAttribute("src") || "";
+      const getThemePreview = (theme) =>
+        theme === "light"
+          ? appPreviewImage.dataset.defaultPreviewLight || appPreviewImage.getAttribute("src") || ""
+          : appPreviewImage.dataset.defaultPreviewDark || appPreviewImage.getAttribute("src") || "";
+      const getCardPreview = (card) => {
+        const theme = html.getAttribute("data-theme") === "light" ? "light" : "dark";
+        return theme === "light" ? card.dataset.previewLight || getThemePreview(theme) : card.dataset.previewDark || getThemePreview(theme);
+      };
       const setPreview = (src) => {
         if (!src || appPreviewImage.getAttribute("src") === src) return;
         appPreviewImage.classList.add("is-transitioning");
@@ -857,11 +906,22 @@ const basePath = import.meta.env.BASE_URL;
       };
 
       capabilityCards.forEach((card) => {
-        const preview = card.dataset.preview || defaultPreview;
-        card.addEventListener("mouseenter", () => setPreview(preview));
-        card.addEventListener("focusin", () => setPreview(preview));
-        card.addEventListener("mouseleave", () => setPreview(defaultPreview));
-        card.addEventListener("focusout", () => setPreview(defaultPreview));
+        card.addEventListener("mouseenter", () => {
+          activeCapabilityCard = card;
+          setPreview(getCardPreview(card));
+        });
+        card.addEventListener("focusin", () => {
+          activeCapabilityCard = card;
+          setPreview(getCardPreview(card));
+        });
+        card.addEventListener("mouseleave", () => {
+          activeCapabilityCard = null;
+          setPreview(getThemePreview(html.getAttribute("data-theme") === "light" ? "light" : "dark"));
+        });
+        card.addEventListener("focusout", () => {
+          activeCapabilityCard = null;
+          setPreview(getThemePreview(html.getAttribute("data-theme") === "light" ? "light" : "dark"));
+        });
       });
     }
 
