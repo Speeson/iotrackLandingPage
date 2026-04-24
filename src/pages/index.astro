@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const basePath = import.meta.env.BASE_URL.endsWith("/")
@@ -56,7 +56,30 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
             <path d="M20.7 14.4A8 8 0 0 1 9.6 3.3 8.6 8.6 0 1 0 20.7 14.4Z"></path>
           </svg>
         </button>
+        <button class="mobile-menu-btn glass-light" id="mobileMenuBtn" type="button" aria-expanded="false" aria-controls="mobileMenuPanel" aria-label="Abrir menu">
+          <span class="sr-only">Abrir menu</span>
+          <span class="mobile-menu-btn__line" data-line="top"></span>
+          <span class="mobile-menu-btn__line" data-line="mid"></span>
+          <span class="mobile-menu-btn__line" data-line="bot"></span>
+        </button>
+        <a class="personal-hex-link" href="https://esgarpe.dev" target="_blank" rel="noreferrer" aria-label="Abrir landing personal de Esteban Garcés">
+          <span class="personal-hex-link__shape" aria-hidden="true">
+            <span class="personal-hex-link__label">EGP</span>
+          </span>
+        </a>
       </div>
+    </div>
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay" aria-hidden="true"></div>
+    <div id="mobileMenuPanel" class="mobile-menu-panel glass" aria-hidden="true">
+      <nav class="mobile-nav-links" aria-label="Primary mobile">
+        <a href="#solution" data-i18n="nav_solution">Flujo</a>
+        <a href="#app" data-i18n="nav_app">App</a>
+        <a href="#integration" data-i18n="nav_integration">Integraciones</a>
+        <a href="#architecture" data-i18n="nav_architecture">Arquitectura</a>
+        <a href="#project" data-i18n="nav_project">Proyecto</a>
+        <a href="#author" data-i18n="nav_author">Autor</a>
+        <a href="https://esgarpe.dev" target="_blank" rel="noreferrer">esgarpe.dev</a>
+      </nav>
     </div>
   </header>
 
@@ -383,7 +406,7 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
           Proyecto educativo desarrollado por Esteban Garcés Pérez para demostrar una solución completa de inventario, sensores simulados, app Android y backend desplegable.
         </p>
         <div class="cta-actions">
-          <a class="btn-primary" href="https://speeson.github.io/CVLandingPage/" target="_blank" rel="noreferrer" data-i18n="cta_primary">Ver mi landing personal</a>
+          <a class="btn-primary" href="https://esgarpe.dev" target="_blank" rel="noreferrer" data-i18n="cta_primary">Ver mi landing personal</a>
           <a class="btn-secondary btn-with-icon" href="https://github.com/Speeson" target="_blank" rel="noreferrer">
             <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M12 2.3a9.8 9.8 0 0 0-3.1 19.1c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.2-3.5-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5A3.9 3.9 0 0 1 6.7 8.7c-.1-.3-.5-1.3.1-2.8 0 0 .9-.3 2.9 1a9.7 9.7 0 0 1 5.3 0c2-1.3 2.9-1 2.9-1 .6 1.5.2 2.5.1 2.8a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.7 5 .4.3.8 1 .8 2v2.5c0 .3.2.6.8.5A9.8 9.8 0 0 0 12 2.3Z"></path>
@@ -608,6 +631,9 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
     const langButtons = document.querySelectorAll("[data-lang-btn]");
     const i18nNodes = document.querySelectorAll("[data-i18n]");
     const themeToggle = document.getElementById("themeToggle");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenuPanel = document.getElementById("mobileMenuPanel");
+    const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
     const progress = document.querySelector(".scroll-progress");
     const hexField = document.getElementById("hexField");
     const revealNodes = document.querySelectorAll(".reveal");
@@ -644,6 +670,24 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
           node.textContent = dictionary[current][key];
         }
       });
+    };
+
+    const closeMobileMenu = () => {
+      if (!mobileMenuBtn || !mobileMenuPanel || !mobileMenuOverlay) return;
+      mobileMenuBtn.setAttribute("aria-expanded", "false");
+      mobileMenuPanel.classList.remove("is-open");
+      mobileMenuPanel.setAttribute("aria-hidden", "true");
+      mobileMenuOverlay.classList.remove("is-open");
+      mobileMenuOverlay.setAttribute("aria-hidden", "true");
+    };
+
+    const openMobileMenu = () => {
+      if (!mobileMenuBtn || !mobileMenuPanel || !mobileMenuOverlay) return;
+      mobileMenuBtn.setAttribute("aria-expanded", "true");
+      mobileMenuPanel.classList.add("is-open");
+      mobileMenuPanel.setAttribute("aria-hidden", "false");
+      mobileMenuOverlay.classList.add("is-open");
+      mobileMenuOverlay.setAttribute("aria-hidden", "false");
     };
 
     const setTheme = (theme) => {
@@ -1009,6 +1053,25 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
       });
     }
 
+    mobileMenuBtn?.addEventListener("click", () => {
+      const isOpen = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+      if (isOpen) closeMobileMenu();
+      else openMobileMenu();
+    });
+
+    mobileMenuOverlay?.addEventListener("click", closeMobileMenu);
+    mobileMenuPanel?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMobileMenu);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) closeMobileMenu();
+    });
+
     const savedLang = localStorage.getItem("iotrack-lang");
     const browserLang = navigator.language.toLowerCase().startsWith("en") ? "en" : "es";
     setLang(savedLang || browserLang);
@@ -1061,3 +1124,6 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
     });
   </script>
 </BaseLayout>
+
+
+
