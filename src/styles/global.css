@@ -257,7 +257,7 @@ a {
 }
 
 .brand-mark {
-  width: 56px;
+  width: 66px;
   height: 56px;
   display: inline-grid;
   place-items: center;
@@ -265,28 +265,59 @@ a {
   filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) 18%, transparent));
 }
 
-.brand-hex {
+.brand-hex-orbital {
   width: 100%;
   height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 0.22rem;
+  position: relative;
+  display: block;
   clip-path: polygon(25% 4%, 75% 4%, 97% 50%, 75% 96%, 25% 96%, 3% 50%);
-  background:
-    linear-gradient(140deg, color-mix(in srgb, var(--accent) 22%, var(--glass-strong)), color-mix(in srgb, var(--accent-2) 18%, var(--glass-strong)));
-  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 10px 22px color-mix(in srgb, var(--accent) 14%, transparent);
+  background: linear-gradient(135deg, var(--hex-stroke-dim), rgba(37, 196, 229, 0.08));
+  opacity: 0.9;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
+  transition: opacity 420ms ease, background 420ms ease, transform 220ms ease;
 }
 
-.brand-hex img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  clip-path: polygon(25% 6%, 75% 6%, 95% 50%, 75% 94%, 25% 94%, 5% 50%);
-  transform: scale(1.04);
+.brand-hex-orbital::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  clip-path: inherit;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(37, 181, 225, 0.09), transparent 52%),
+    var(--hex-core);
+}
+
+.brand-hex-orbital::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: inherit;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(76, 244, 255, 0.34), transparent 46%),
+    linear-gradient(145deg, transparent 0 28%, rgba(110, 230, 255, 0.24) 50%, transparent 72% 100%);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.brand:hover .brand-hex-orbital,
+.brand:focus-visible .brand-hex-orbital {
+  opacity: 1;
+  background: linear-gradient(135deg, var(--hex-energy), rgba(80, 145, 255, 0.5));
+  transform: translateY(-1px);
+}
+
+.brand:hover .brand-hex-orbital::before,
+.brand:focus-visible .brand-hex-orbital::before {
+  background:
+    radial-gradient(circle at 50% 50%, var(--hex-energy-soft), transparent 58%),
+    var(--hex-core);
+}
+
+.brand:hover .brand-hex-orbital::after,
+.brand:focus-visible .brand-hex-orbital::after {
+  opacity: 1;
 }
 
 .brand-wordmark {
@@ -294,11 +325,59 @@ a {
   display: inline-flex;
   align-items: center;
   min-height: 56px;
-  font-size: 1.24rem;
-  font-weight: 800;
+  position: relative;
+  font-size: 1.6rem;
+  font-weight: 900;
   line-height: 1;
-  color: color-mix(in srgb, var(--text) 82%, var(--accent));
-  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 10%, transparent);
+  letter-spacing: -0.03em;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--text) 86%, var(--accent) 14%) 0%,
+    color-mix(in srgb, var(--text) 58%, var(--accent) 42%) 44%,
+    color-mix(in srgb, var(--accent) 74%, white 26%) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--accent) 8%, transparent),
+    0 10px 28px color-mix(in srgb, var(--accent) 10%, transparent);
+  transition: filter 240ms ease, text-shadow 240ms ease, transform 240ms ease;
+}
+
+.brand-wordmark::after {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  right: 0.1rem;
+  bottom: 0.35rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 48%, transparent) 20%,
+    color-mix(in srgb, var(--accent-2) 44%, transparent) 80%,
+    transparent
+  );
+  opacity: 0.55;
+  transform: scaleX(0.72);
+  transform-origin: center;
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+.brand:hover .brand-wordmark,
+.brand:focus-visible .brand-wordmark {
+  filter: saturate(1.1) brightness(1.08);
+  text-shadow:
+    0 0 22px color-mix(in srgb, var(--accent) 16%, transparent),
+    0 12px 30px color-mix(in srgb, var(--accent-2) 14%, transparent);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.brand:hover .brand-wordmark::after,
+.brand:focus-visible .brand-wordmark::after {
+  opacity: 0.92;
+  transform: scaleX(1);
 }
 
 .nav-links {
