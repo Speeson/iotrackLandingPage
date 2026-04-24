@@ -39,8 +39,13 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
           <button class="lang-btn is-active" data-lang-btn="es">ES</button>
           <button class="lang-btn" data-lang-btn="en">EN</button>
         </div>
+        <button class="mobile-lang-btn glass-light" id="mobileLangBtn" type="button" aria-label="Cambiar idioma">
+          <span class="mobile-lang-btn__flag flag-svg" id="mobileLangFlag" aria-hidden="true"></span>
+          <span class="sr-only" id="mobileLangLabel">EN</span>
+        </button>
         <button class="theme-btn glass-light" id="themeToggle" type="button" aria-label="Toggle theme">
           <span class="theme-thumb" aria-hidden="true"></span>
+          <span class="mobile-theme-emoji" id="mobileThemeEmoji" aria-hidden="true">🌙</span>
           <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2"></path>
@@ -630,7 +635,11 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
     const html = document.documentElement;
     const langButtons = document.querySelectorAll("[data-lang-btn]");
     const i18nNodes = document.querySelectorAll("[data-i18n]");
+    const mobileLangBtn = document.getElementById("mobileLangBtn");
+    const mobileLangFlag = document.getElementById("mobileLangFlag");
+    const mobileLangLabel = document.getElementById("mobileLangLabel");
     const themeToggle = document.getElementById("themeToggle");
+    const mobileThemeEmoji = document.getElementById("mobileThemeEmoji");
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const mobileMenuPanel = document.getElementById("mobileMenuPanel");
     const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
@@ -657,6 +666,25 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
     let grapheneResizeTimer = null;
     let activeCapabilityCard = null;
 
+    const getFlagSvg = (lang) => {
+      if (lang === "en") {
+        return `
+          <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <rect width="64" height="48" fill="#012169"></rect>
+            <path d="M0 0 64 48M64 0 0 48" stroke="#fff" stroke-width="10"></path>
+            <path d="M0 0 64 48M64 0 0 48" stroke="#C8102E" stroke-width="6"></path>
+            <path d="M32 0v48M0 24h64" stroke="#fff" stroke-width="16"></path>
+            <path d="M32 0v48M0 24h64" stroke="#C8102E" stroke-width="10"></path>
+          </svg>`;
+      }
+
+      return `
+        <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <rect width="64" height="48" fill="#AA151B"></rect>
+          <rect y="12" width="64" height="24" fill="#F1BF00"></rect>
+        </svg>`;
+    };
+
     const setLang = (lang) => {
       const current = dictionary[lang] ? lang : "es";
       localStorage.setItem("iotrack-lang", current);
@@ -670,6 +698,13 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
           node.textContent = dictionary[current][key];
         }
       });
+      if (mobileLangBtn && mobileLangFlag && mobileLangLabel) {
+        const nextLang = current === "es" ? "en" : "es";
+        mobileLangFlag.innerHTML = getFlagSvg(nextLang);
+        mobileLangLabel.textContent = nextLang.toUpperCase();
+        mobileLangBtn.setAttribute("aria-label", current === "es" ? "Cambiar a inglés" : "Switch to Spanish");
+        mobileLangBtn.setAttribute("title", current === "es" ? "Cambiar a inglés" : "Switch to Spanish");
+      }
     };
 
     const closeMobileMenu = () => {
@@ -697,6 +732,9 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
         const nextTheme = theme === "dark" ? "light" : "dark";
         themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
         themeToggle.setAttribute("title", `Switch to ${nextTheme} mode`);
+      }
+      if (mobileThemeEmoji) {
+        mobileThemeEmoji.textContent = theme === "dark" ? "🌙" : "☀️";
       }
       if (appPreviewImage) {
         const previewTheme = theme === "light" ? "light" : "dark";
@@ -1008,6 +1046,11 @@ const basePath = import.meta.env.BASE_URL.endsWith("/")
 
     langButtons.forEach((btn) => {
       btn.addEventListener("click", () => setLang(btn.dataset.langBtn || "es"));
+    });
+
+    mobileLangBtn?.addEventListener("click", () => {
+      const currentLang = html.getAttribute("lang") === "en" ? "en" : "es";
+      setLang(currentLang === "es" ? "en" : "es");
     });
 
     themeToggle?.addEventListener("click", () => {
